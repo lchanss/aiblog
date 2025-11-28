@@ -10,7 +10,7 @@ export default function PostDetailPage() {
   const { postId } = useParams<{ postId: string }>();
   const navigate = useNavigate();
 
-  const post = !postId ? null : getPost(postId);
+  const post = postId ? getPost(postId) : null;
 
   if (!post) {
     return <Navigate to={PATHS.notFound.getHref()} replace />;

@@ -13,7 +13,7 @@ export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const owner = searchParams.get("owner") ?? "";
   const repository = searchParams.get("repository") ?? "";
-  const page = Number(searchParams.get("page") ?? DEFAULT_PAGE.toString());
+  const page = parsePageNumber(searchParams.get("page"), DEFAULT_PAGE);
 
   const hasSearchParams = owner !== "" && repository !== "";
 
@@ -65,3 +65,9 @@ export default function SearchPage() {
     </div>
   );
 }
+
+const parsePageNumber = (value: string | null, defaultValue: number): number => {
+  if (!value) return defaultValue;
+  const parsed = Number(value);
+  return Number.isNaN(parsed) ? defaultValue : parsed;
+};

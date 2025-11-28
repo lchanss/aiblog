@@ -4,6 +4,15 @@ import { config } from "../config/env.js";
 
 const genAI = new GoogleGenerativeAI(config.gemini.apiKey);
 
+// 특수 공백 문자 정규식
+const WHITESPACE_PATTERNS = {
+  NON_BREAKING_SPACE: /\u00A0/g, // Non-breaking space
+  UNICODE_SPACES: /[\u2000-\u200B]/g, // 다양한 유니코드 공백
+  FULLWIDTH_SPACE: /\u3000/g, // 전각 공백
+} as const;
+
+const SPACE = " ";
+
 export const generateGeminiContent = async (
   prompt: string
 ): Promise<GenerateAiPostResponse> => {
@@ -41,9 +50,9 @@ export const generateGeminiContent = async (
       // \u00A0: Non-breaking space
       // \u2000-\u200B: 다양한 유니코드 공백
       cleanedText = cleanedText
-        .replace(/\u00A0/g, " ")
-        .replace(/[\u2000-\u200B]/g, " ")
-        .replace(/\u3000/g, " "); // 전각 공백
+        .replace(WHITESPACE_PATTERNS.NON_BREAKING_SPACE, " ")
+        .replace(WHITESPACE_PATTERNS.UNICODE_SPACES, " ")
+        .replace(WHITESPACE_PATTERNS.FULLWIDTH_SPACE, " ");
 
       // 3. JSON 파싱
       const result = JSON.parse(cleanedText) as GenerateAiPostResponse;

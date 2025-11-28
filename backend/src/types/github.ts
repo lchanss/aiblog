@@ -59,14 +59,14 @@ export type SimplifiedCommit = {
   };
 };
 
-export interface PaginationInfo {
+export type PaginationInfo = {
   currentPage: number;
   hasNext: boolean;
   hasPrev: boolean;
   lastPage: number | null;
-}
+};
 
-export interface PaginatedResponse<T> {
+export type PaginatedResponse<T> = {
   data: T;
   pagination: PaginationInfo;
-}
+};

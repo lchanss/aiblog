@@ -1,15 +1,10 @@
+import { PaginationInfo } from "../types/github.js";
+
 export interface ParsedLink {
   next?: string;
   prev?: string;
   first?: string;
   last?: string;
-}
-
-export interface PaginationInfo {
-  currentPage: number;
-  hasNext: boolean;
-  hasPrev: boolean;
-  lastPage: number | null;
 }
 
 /**

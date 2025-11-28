@@ -11,7 +11,6 @@ import {
 } from "../types/github.js";
 import { createPaginationInfo } from "../utils/linkHeader.js";
 
-// PR 상태 판별 함수
 const getPRStatus = (
   state: string,
   draft: boolean,
@@ -83,7 +82,6 @@ export const getPRList = async (
     const linkHeader = headers.get("link");
     const pagination = createPaginationInfo(linkHeader, pageNum);
 
-    // 페이지네이션 포함한 응답
     const response: PaginatedResponse<SimplifiedPullRequest[]> = {
       data: simplified,
       pagination,
